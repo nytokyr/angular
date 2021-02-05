@@ -9,23 +9,8 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  hero: Hero = {
-    id: 1,
-    name: 'Windstorm',
-  };
-
   heroes: Hero[];
-
-  selectedHero: Hero;
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`Selected Herod id is ${this.selectedHero.id}`);
-  }
-
-  constructor(
-    private heroService: HeroService,
-    private messageService: MessageService
-  ) {}
+  constructor(private heroService: HeroService) {}
 
   getHeroes(): void {
     this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
