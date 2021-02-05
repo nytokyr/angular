@@ -9,6 +9,7 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
+  heroName: string;
   heroes: Hero[];
   constructor(private heroService: HeroService) {}
 
@@ -18,5 +19,18 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHeroes();
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) return;
+    this.heroService
+      .addHero({ name } as Hero)
+      .subscribe((hero) => this.heroes.push(hero));
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h=>h.id !== hero.id);
+    this.heroService.deleteHero(hero).subscribe();
   }
 }
